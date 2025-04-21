@@ -1,0 +1,465 @@
+/* Copyright (c) 2024 by CleverYeti (https://codepen.io/cleveryeti/pen/JjqNeZm) */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  font-family: "Urbanist";
+	--bg: #0b0a0d;
+	--bg-2: #1b1c1f;
+	--bg-2: #1f1c21;
+	--accent: #864DEB;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Устанавливаем минимальную высоту для страницы */
+    margin: 0;
+    background: var(--bg);
+    color: var(--primary-text);
+}
+
+main {
+    flex: 1; /* Заставляем main занимать всё доступное пространство */
+}
+
+footer {
+    text-align: center;
+    color: var(--primary-text);
+    padding: 1rem;
+    background-color: var(--bg-2);
+}
+
+.content {
+    height: 20rem;
+    width: 20rem;
+    position: relative;
+    display: flex;
+    overflow-x: hidden;
+    cursor: grab;
+    border: 2px solid red;
+}
+.content:hover {
+    --dscroll: 1.6;
+}
+.content > section {
+    --relPosition: 1;
+    position: absolute;
+    top: 0;
+    left: calc(var(--relPosition) * 80%);
+    height: 100%;
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 0 0 0.125rem #ffffff11;
+    overflow: hidden;
+    isolation: isolate;
+    z-index: calc(1000 + 100 * min(var(--relPosition), -1 * var(--relPosition)));
+}
+.content > section:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--image) center center / cover;
+    z-index: -1;
+    border-radius: inherit;
+    filter: brightness(50%) blur(0.25rem);
+    transform: scale(1);
+}
+
+.content > section > .image {
+    flex-grow: 1;
+    border-radius: 1.25rem;
+    box-shadow: 0 0 0.75rem #00000077;
+    background: var(--image) center center / cover;
+}
+
+.content > section > .title {
+    color: white;
+    font-weight: 500;
+    padding: 0.25rem 0.125rem;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.content > section > .button {
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    background: #ffffff22;
+    backdrop-filter: brightness(200%) blur(2rem);
+    display: grid;
+    place-content: center;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content > section > .button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    animation: fadeIn 0.5s ease;
+}
+
+.modal.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.modal:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+.close-modal {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+}
+
+.slide {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev {
+    left: 1rem;
+}
+
+.next {
+    right: 1rem;
+}
+
+.car-description {
+    margin-top: 1rem;
+}
+
+#hiking {
+  --image: url('https://images.unsplash.com/photo-1535515384173-d74166f26820?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTcyNjU5ODh8&ixlib=rb-4.0.3&q=85'); /* photo by David Gavi for Unsplash */
+}
+
+#camping {
+  --image: url('https://images.unsplash.com/photo-1565674484371-a90094649d30?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTcyNjYwODJ8&ixlib=rb-4.0.3&q=85'); /* Photo by Valery Sysoev for Unsplash */
+}
+
+#stargazing {
+  --image: url('https://images.unsplash.com/photo-1516257273908-f54242bd5ade?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTcyNjU1OTh8&ixlib=rb-4.0.3&q=85'); /* Photo by Chris Leggat for Unsplash */
+}
+
+.button-retro {
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-style: italic;
+    font-family: "IBM Plex Mono", monospace;
+    height: 50px;
+    padding: 0 30px;
+    position: relative;
+    margin: 10px;
+    text-transform: uppercase;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #24252c;
+    border: none;
+    border-radius: 10px;
+}
+
+.button-retro::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: repeating-linear-gradient(
+        0deg,
+        #181a29,
+        #181a29 1px,
+        #202436 1px,
+        #202436 2px
+    );
+    border-radius: 10px;
+    z-index: -1;
+    transition: box-shadow 700ms;
+}
+
+.button-retro:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+.button-retro:hover::before {
+    box-shadow: 0 0 25px 2px #0763f7;
+}
+
+.button-retro span {
+    z-index: 1;
+    transition: color 350ms;
+}
+
+.button-retro:hover span {
+    color: #c40a35;
+}
+
+.car-item {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Стили для навбара */
+.navbar {
+    background-color: var(--bg-2);
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    display: inline;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    color: var(--accent);
+}
+
+/* Стили для секции "О сайте" */
+.about {
+    padding: 2rem;
+    background-color: #007BFF; /* Ярко-синий фон */
+    color: white;
+    text-align: center;
+    border-radius: 1rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    animation: glow 2s infinite alternate; /* Добавляем анимацию */
+}
+
+.about:hover {
+    box-shadow: 0 0 25px var(--accent), 0 0 50px var(--accent);
+    transform: scale(1.02);
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 10px var(--accent);
+    }
+    100% {
+        box-shadow: 0 0 25px var(--accent), 0 0 50px var(--accent);
+    }
+}
+
+.about h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+.about p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.about ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.about ul li {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    text-align: left;
+    position: relative;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.about ul li:hover {
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+}
+
+/* Стили для кнопки-ссылки */
+.link-style {
+    background: none;
+    border: none;
+    color: #fff;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.link-style:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* Стили для формы кредита */
+.credit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem; /* Расстояние между элементами */
+    max-width: 400px;
+    margin: 0 auto; /* Центрируем форму по горизонтали */
+    padding: 1rem;
+    background-color: var(--bg-2);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.credit-form label {
+    font-size: 1rem;
+    color: white;
+    text-align: left;
+    width: 100%;
+}
+
+.credit-form input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: #1f1c21;
+    color: white;
+}
+
+.credit-form input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 5px var(--accent);
+}
+
+.credit-form button {
+    width: 100%;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    body {
+        display: block;
+        padding: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .car-list {
+        grid-template-columns: 1fr; /* Одна колонка на мобильных */
+    }
+
+    .car-item {
+        width: 100%;
+    }
+
+    .hero {
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .banner img {
+        width: 100%;
+        border-radius: 0.5rem;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+}

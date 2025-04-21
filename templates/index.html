@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Главная страница - AvtoShopping Aqtobe{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mouse_controlled_carousel.css') }}">
+    <script defer src="{{ url_for('static', filename='js/mouse_controlled_carousel.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Добро пожаловать в AvtoShopping Aqtobe</h1>
+    <p>Ваш помощник в выборе и покупке авто</p>
+    <a href="{{ url_for('catalog') }}" class="button-retro"><span>Перейти в каталог</span></a>
+</section>
+
+<div class="mouse-carousel">
+    <div class="mouse-carousel-track">
+        <div class="slide">
+            <img src="{{ url_for('static', filename='images/ty80/ty801.png') }}" alt="Toyota Camry 80">
+            <a href="{{ url_for('car_details', car_id=1) }}" class="slide-button">Toyota Camry 80</a>
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='images/ks/ks1.png') }}" alt="Kia Sportage">
+            <a href="{{ url_for('car_details', car_id=2) }}" class="slide-button">Kia Sportage</a>
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='images/he/he1.png') }}" alt="Hyundai Elantra">
+            <a href="{{ url_for('car_details', car_id=3) }}" class="slide-button">Hyundai Elantra</a>
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='images/ty70/ty701.png') }}" alt="Toyota Camry 70">
+            <a href="{{ url_for('car_details', car_id=4) }}" class="slide-button">Toyota Camry 70</a>
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='images/ko/ko1.png') }}" alt="Kia Optima">
+            <a href="{{ url_for('car_details', car_id=5) }}" class="slide-button">Kia Optima</a>
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='images/hs/hs1.png') }}" alt="Hyundai Sonata">
+            <a href="{{ url_for('car_details', car_id=6) }}" class="slide-button">Hyundai Sonata</a>
+        </div>
+    </div>
+</div>
+
+<section element class="about">
+    <h2>О сайте</h2>
+    <p><strong>AvtoShopping Aqtobe</strong> — это сервис для удобного выбора, сравнения и оценки автомобилей. Вы можете:</p>
+    <ul>
+        <li>Просматривать каталог автомобилей с подробной информацией.</li>
+        <li>Сравнивать до 3 автомобилей одновременно.</li>
+        <li>Рассчитывать ежемесячный платёж по кредиту.</li>
+        <li>Оценивать стоимость авто для Trade-In.</li>
+        <li>Записываться на тест-драйв.</li>
+    </ul>
+    <p>Мы делаем покупку авто проще и приятнее!</p>
+</section>
+{% endblock %}

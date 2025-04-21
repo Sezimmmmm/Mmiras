@@ -1,0 +1,36 @@
+.drag-slider {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    overflow: hidden;
+    cursor: grab;
+}
+
+.drag-slider-track {
+    display: flex;
+    gap: 1rem;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+.drag-slider-track img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.drag-slider-track img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .drag-slider-track img {
+        width: 200px;
+        height: 150px;
+    }
+}

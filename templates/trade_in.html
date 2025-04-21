@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Trade-In{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Trade-In</h1>
+</section>
+
+<div style=text-align:center;>
+    <p><strong>Введите VIN номер и пробег автомобиля</strong>, чтобы мы могли произвести предварительную оценку вашей машины в рамках программы Trade-In.</p>
+    <ul style="list-style: none; padding: 0; margin: 0.5rem 0 0 0;color: #ccc;">
+    <li>🔎 <strong>VIN</strong> — уникальный идентификационный номер автомобиля, по которому определяется его модель, год выпуска и история.</li>
+    <li>🛣️ <strong>Пробег</strong> — важный фактор, влияющий на стоимость авто при обмене. Чем меньше пробег — тем выше цена.</li>
+</ul>
+<p style="margin: 1rem 0; color: #bbb;">
+    Пожалуйста, укажите корректные данные ниже — это важно для точной оценки.
+</p>
+<form method="POST" action="{{ url_for('trade_in') }}" class="trade-in-form">
+    <label for="vin">Введите VIN:</label>
+    <input type="text" id="vin" name="vin" required>
+
+    <label for="mileage">Введите пробег (км):</label>
+    <input type="number" id="mileage" name="mileage" required>
+
+    <button type="submit" class="button-retro"><span>Оценить</span></button>
+</form>
+
+{% if vin_data %}
+<h2>Данные по VIN</h2>
+<ul>
+    <li><strong>Марка:</strong> {{ vin_data.get('make', 'Неизвестно') }}</li>
+    <li><strong>Модель:</strong> {{ vin_data.get('model', 'Неизвестно') }}</li>
+    <li><strong>Год выпуска:</strong> {{ vin_data.get('year', 'Неизвестно') }}</li>
+</ul>
+{% else %}
+<p>Данные по VIN не найдены или произошла ошибка.</p>
+{% endif %}
+
+{% if estimated_price is not none %}
+<p>Примерная стоимость: <strong>{{ estimated_price }} KZT</strong></p>
+{% else %}
+<p>Введите данные для оценки стоимости автомобиля.</p>
+{% endif %}
+</div>
+{% endblock %}

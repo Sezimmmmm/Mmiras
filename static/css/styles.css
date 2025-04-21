@@ -1,0 +1,596 @@
+/* Объединённый CSS — Автор: CleverYeti и доработки */
+
+/* Подключение шрифта */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@1,500&display=swap");
+
+/* Переменные и базовые стили */
+:root {
+  font-family: "Urbanist";
+  --bg: #FFFFFF; /* Белый фон */
+  --bg-2: #003049; /* Тёмно-синий для навбара */
+  --accent: #D62828; /* Красный */
+  --primary-text: #000000; /* Чёрный текст */
+  --secondary-text: #A0A0A0; /* Серый */
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  width: 100%;
+  background: var(--bg); /* Белый фон */
+  color: var(--primary-text); /* Чёрный текст */
+  overflow-x: hidden;
+  user-select: none;
+  font-family: "Urbanist", sans-serif;
+}
+
+/* Контейнер карточек */
+.content {
+  height: 20rem;
+  width: 20rem;
+  position: relative;
+  display: flex;
+  overflow-x: hidden;
+  cursor: grab;
+  border: 2px solid red;
+}
+
+.content:hover {
+  --dscroll: 1.6;
+}
+
+.content > section {
+  --relPosition: 1;
+  position: absolute;
+  top: 0;
+  left: calc(var(--relPosition) * 80%);
+  height: 100%;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 0 0 0.125rem #ffffff11;
+  overflow: hidden;
+  isolation: isolate;
+  z-index: calc(1000 + 100 * min(var(--relPosition), -1 * var(--relPosition)));
+}
+
+.content > section:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--image) center center / cover;
+  z-index: -1;
+  border-radius: inherit;
+  filter: brightness(50%) blur(0.25rem);
+  transform: scale(1);
+}
+
+.content > section > .image {
+  flex-grow: 1;
+  border-radius: 1.25rem;
+  box-shadow: 0 0 0.75rem #00000077;
+  background: var(--image) center center / cover;
+}
+
+.content > section > .title {
+  color: white;
+  font-weight: 500;
+  padding: 0.25rem 0.125rem;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.content > section > .button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--accent);
+}
+
+.content::-webkit-scrollbar {
+  display: block;
+}
+
+/* Модальное окно */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  animation: fadeIn 0.5s ease;
+}
+
+.modal.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal:not(.hidden) {
+  opacity: 1;
+  visibility: visible;
+}
+
+.close-modal {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Smooth Scrolling Carousel */
+.slider {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.slides {
+    display: flex;
+    gap: 1rem;
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+}
+
+.slide {
+    flex: 0 0 auto;
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    scroll-snap-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.slide:hover {
+    transform: scale(1.05);
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.prev:hover, .next:hover {
+    background: var(--accent);
+}
+
+.prev {
+    left: 1rem;
+}
+
+.next {
+    right: 1rem;
+}
+
+.car-description {
+  margin-top: 1rem;
+  text-align: center;
+  color: var(--primary-text);
+}
+
+.car-description h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.car-description p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Стили для кнопок */
+.button-retro {
+  background-color: var(--accent); /* Красный */
+  color: #FFFFFF; /* Белый текст */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  padding: 6px 16px;
+  height: auto;
+  position: relative;
+  border: none;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1;
+}
+
+.button-retro:hover {
+  background-color: #B71C1C; /* Тёмно-красный для наведения */
+}
+
+/* Фон до наведения */
+.button-retro::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #B71C1C; /* Основной цвет фона */
+    background-image: repeating-linear-gradient(
+        45deg, /* Угол наклона */
+        #B71C1C 0%, /* Основной цвет фона */
+        #B71C1C 1px, /* Основной цвет фона */
+    ); /* Линии с градиентом */
+    border-radius: 10px;
+    transition: box-shadow 700ms; /* Плавный переход для свечения */
+    z-index: -1;
+}
+/* Наведение */
+.button-retro:hover::before {
+    box-shadow: 0 0 20px 2px #0763f7; /* Свечение */
+}
+
+/* Текст внутри кнопки */
+.button-retro span {
+    transition: color 350ms;
+    z-index: 1;
+}
+
+.button-retro:hover span {
+    color: #FFFFFF; /* Белый текст при наведении */
+}
+
+label svg {
+    border-radius: 10px;
+    overflow: hidden;
+    position: absolute;
+    transform: skew(-15deg);
+}
+
+label svg .blue rect {
+    fill: #76b3fa;
+    shape-rendering: crispEdges;
+    mix-blend-mode: plus-lighter;
+}
+
+label svg .pink rect {
+    fill: #ff6bd3;
+    shape-rendering: crispEdges;
+}
+
+.car-item {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Детальная страница авто */
+.car-details {
+  text-align: center;
+  margin: 2rem auto;
+}
+
+.car-details img {
+    max-width: 100%; /* Убедимся, что изображение не превышает ширину контейнера */
+    width: 300px; /* Устанавливаем фиксированную ширину */
+    height: 250px; /* Устанавливаем фиксированную высоту */
+    object-fit: cover; /* Сохраняем пропорции внутри заданных размеров */
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0.5rem;
+}
+
+.car-details table {
+  margin: 1rem auto;
+  border-collapse: collapse;
+  width: 80%;
+}
+
+.car-details table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.car-details table td, 
+.car-details table th {
+    color: #333333; /* Тёмно-серый текст для лучшей видимости */
+}
+
+.car-details .buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Таблицы для сравнения */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+table th {
+  background-color: var(--bg-2);
+  color: white;
+}
+
+table td {
+  background-color: var(--bg);
+  color: rgb(0, 0, 0);
+}
+
+/* Навбар */
+.navbar {
+  background-color: var(--bg-2); /* Тёмно-синий */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    display: inline;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: #FFFFFF; /* Белый текст */
+  font-weight: bold;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar ul li a:hover {
+  color: var(--accent); /* Красный */
+  transform: scale(1.1);
+}
+
+/* Секция О сайте */
+.about {
+  padding: 2rem;
+  background-color: #87b1df; /* Ярко-синий фон */
+  color: white; /* Белый текст */
+  text-align: center;
+  border-radius: 1rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.about h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #ff0000; /* Красный текст */
+}
+
+.about p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.about ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about ul li {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  text-align: left;
+  color: #FFFFFF; /* Белый текст для списка */
+}
+
+/* Центрирование текста */
+.hero, .about, .slider, .car-list, .car-details, .modal-content {
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Форма кредита */
+.credit-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: var(--bg-2); /* Светло-серый */
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.credit-form label {
+  font-size: 1rem;
+  color: var(--secondary-text); /* Серый */
+  text-align: left;
+  width: 100%;
+}
+
+.credit-form input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background-color: #FFFFFF; /* Белый */
+  color: #000000; /* Чёрный текст */
+}
+
+/* Форма trade-in */
+.trade-in-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem; /* Расстояние между элементами */
+  max-width: 400px;
+  margin: 0 auto; /* Центрируем форму по горизонтали */
+  padding: 1rem;
+  background-color: var(--bg-2); /* Светло-серый */
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.trade-in-form label {
+  font-size: 1rem;
+  color: var(--secondary-text); /* Серый */
+  text-align: left;
+  width: 100%;
+}
+
+.trade-in-form input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background-color: #FFFFFF; /* Белый */
+  color: #000000; /* Чёрный текст */
+}
+
+.trade-in-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 5px var(--accent);
+}
+
+.trade-in-form button {
+  width: 100%;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  body {
+    display: block;
+    padding: 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .car-list {
+    grid-template-columns: 1fr;
+  }
+
+  .car-item {
+    width: 100%;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .banner img {
+    width: 100%;
+    border-radius: 0.5rem;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  .car-details img {
+    width: 150px;
+    height: auto;
+  }
+}
+
+/* Стили для стилизованного выпадающего списка */
+.styled-select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.styled-select select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: #01476d; /* Тёмный фон */
+    color: white; /* Белый текст */
+    appearance: none; /* Убираем стандартный стиль браузера */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23FFFFFF' d='M2 0L0 2h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.65rem auto;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.styled-select select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--accent);/* Свечение */
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AvtoShopping{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    {% block head %}{% endblock %}  <!-- Добавлен блок для доп. стилей -->
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="{{ url_for('index') }}" style="color: var(--accent); font-weight: bold; font-size: 1.5rem;">AvtoShopping</a>
+            </div>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Главная</a></li>
+                <li><a href="{{ url_for('catalog') }}">Каталог</a></li>
+                <li><a href="{{ url_for('credit_calc') }}">Кредит</a></li>
+                <li><a href="{{ url_for('trade_in') }}">Trade-In</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main style="flex: 1;">
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p style="text-align: center; color: var(--primary-text); padding: 1rem;">&copy; 2024 AvtoShopping Aqtobe</p>
+    </footer>
+</body>
+</html>

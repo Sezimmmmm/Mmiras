@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    font-family: "Urbanist";
+    --bg: #0b0a0d;
+    --accent: #864DEB;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    background: var(--bg);
+    display: grid;
+    place-content: center;
+    color: white;
+    user-select: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.content {
+    --scroll: 1;
+    height: 20rem;
+    width: 20rem;
+    position: relative;
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    cursor: grab;
+}
+
+.content:hover {
+    --dscroll: 1.6;
+}
+
+.content::-webkit-scrollbar {
+    display: none; /* Скрываем полосу прокрутки */
+}
+
+.content > section {
+    --relPosition: 1;
+    position: relative;
+    flex: 0 0 auto;
+    height: 100%;
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 0 0 0.125rem #ffffff11;
+    overflow: hidden;
+    isolation: isolate;
+    z-index: calc(1000 + 100 * min(var(--relPosition), -1 * var(--relPosition)));
+}
+
+.content > section:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--image) center center / cover;
+    z-index: -1;
+    border-radius: inherit;
+    filter: brightness(50%) blur(0.25rem);
+    transform: scale(1);
+}
+
+.content > section > .image {
+    flex-grow: 1;
+    border-radius: 1.25rem;
+    box-shadow: 0 0 0.75rem #00000077;
+    background: var(--image) center center / cover;
+}
+
+.content > section > .title {
+    color: white;
+    font-weight: 500;
+    padding: 0.25rem 0.125rem;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.content > section > .button {
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    background: #ffffff22;
+    backdrop-filter: brightness(200%) blur(2rem);
+    display: grid;
+    place-content: center;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content > section > .button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 1rem;
+    animation: scroll 20s linear infinite;
+}
+
+.carousel-track img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel-track img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

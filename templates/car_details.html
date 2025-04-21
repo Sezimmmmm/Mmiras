@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ car[1] }} {{ car[2] }}{% endblock %}
+
+{% block content %}
+<div class="car-details">
+    <!-- Блок с изображениями -->
+    <div class="car-details-images">
+        <div class="car-details-images-container">
+            {% if car[0] == 1 %}
+            <!-- Изображения для Toyota Camry 80 -->
+            <img src="{{ url_for('static', filename='images/ty80/ty801.png') }}" alt="Toyota Camry 80 - 1" element class="car-details">
+            <img src="{{ url_for('static', filename='images/ty80/ty802.png') }}" alt="Toyota Camry 80 - 2" element class="car-details">
+            {% elif car[0] == 2 %}
+            <!-- Изображения для Kia Sportage -->
+            <img src="{{ url_for('static', filename='images/ks/ks1.png') }}" alt="Kia Sportage - 1" element class="car-details">
+            <img src="{{ url_for('static', filename='images/ks/ks4.png') }}" alt="Kia Sportage - 3" element class="car-details">
+            {% elif car[0] == 3 %}
+            <!-- Изображения для Hyundai Elantra -->
+            <img src="{{ url_for('static', filename='images/he/he1.png') }}" alt="Hyundai Elantra - 1" element class="car-details">
+            <img src="{{ url_for('static', filename='images/he/he2.png') }}" alt="Hyundai Elantra - 2" element class="car-details">
+            {% elif car[0] == 4 %}
+            <!-- Изображения для Toyota Camry 70 -->
+            <img src="{{ url_for('static', filename='images/ty70/ty701.png') }}" alt="Toyota Camry 70 - 1" element class="car-details">
+            <img src="{{ url_for('static', filename='images/ty70/ty702.png') }}" alt="Toyota Camry 70 - 2" element class="car-details">
+            {% elif car[0] == 5 %}
+            <!-- Изображения для Kia Optima -->
+            <img src="{{ url_for('static', filename='images/ko/ko1.png') }}" alt="Kia Optima - 1" element class="car-details">
+            <img src="{{ url_for('static', filename='images/ko/ko2.png') }}" alt="Kia Optima - 2" element class="car-details">
+            {% elif car[0] == 6 %}
+            <!-- Изображения для Hyundai Sonata -->
+            <img src="{{ url_for('static', filename='images/hs/hs1.png') }}" alt="Hyundai Sonata - 1" element class="car-details">
+            <img src="{{ url_for('static', filename='images/hs/hs2.png') }}" alt="Hyundai Sonata - 2" element class="car-details">
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Блок с информацией об автомобиле -->
+    <h2>{{ car[1] }} {{ car[2] }}</h2>
+    <table style="background-color: #FFFFFF; color: #000000; border-collapse: collapse; width: 80%; margin: 1rem auto;">
+        <tr>
+            <td style="padding: 0.5rem; border: 1px solid #ccc;">Цена:</td>
+            <td style="padding: 0.5rem; border: 1px solid #ccc;">{{ car[3] }} KZT</td>
+        </tr>
+        <tr>
+            <td style="padding: 0.5rem; border: 1px solid #ccc;">Пробег:</td>
+            <td style="padding: 0.5rem; border: 1px solid #ccc;">{{ car[4] }} км</td>
+        </tr>
+        <tr>
+            <td style="padding: 0.5rem; border: 1px solid #ccc;">Тип кузова:</td>
+            <td style="padding: 0.5rem; border: 1px solid #ccc;">{{ car[5] }}</td>
+        </tr>
+    </table>
+
+    <!-- Блок с кнопками -->
+    <div class="buttons">
+        <a href="{{ url_for('compare', car_ids=[car[0]]) }}" class="button-retro"><span>Сравнить</span></a>
+        <a href="{{ url_for('test_drive') }}" class="button-retro"><span>Записаться на тест-драйв</span></a>
+    </div>
+</div>
+{% endblock %}

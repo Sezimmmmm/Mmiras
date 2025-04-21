@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Сравнение автомобилей{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Сравнение автомобилей</h1>
+</section>
+{% if cars %}
+<table style="background-color: #FFFFFF; color: #000000; border-collapse: collapse; width: 80%; margin: 1rem auto;">
+    <thead>
+        <tr>
+            <th style="padding: 0.5rem; border: 1px solid #ffffff;">Характеристика</th>
+            {% for car in cars %}
+            <th style="padding: 0.5rem; border: 1px solid #ffffff;">{{ car[1] }} {{ car[2] }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="padding: 0.5rem; border: 1px solid #ccc;">Цена</td>
+            {% for car in cars %}
+            <td style="padding: 0.5rem; border: 1px solid #ccc;">{{ car[3] }} KZT</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td style="padding: 0.5rem; border: 1px solid #ccc;">Пробег</td>
+            {% for car in cars %}
+            <td style="padding: 0.5rem; border: 1px solid #ccc;">{{ car[4] }} км</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td style="padding: 0.5rem; border: 1px solid #ccc;">Тип кузова</td>
+            {% for car in cars %}
+            <td style="padding: 0.5rem; border: 1px solid #ccc;">{{ car[5] }}</td>
+            {% endfor %}
+        </tr>
+        <!-- Добавьте больше характеристик, если нужно -->
+    </tbody>
+</table>
+{% else %}
+<p>Вы не выбрали автомобили для сравнения.</p>
+{% endif %}
+{% endblock %}
